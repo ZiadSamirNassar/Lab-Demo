@@ -1,0 +1,7 @@
+.env
+/back_end/node_modules
+/back_end/DB
+/back_end/Docs
+/back_end/generated
+/back_end/logs
+/back_end/prisma
