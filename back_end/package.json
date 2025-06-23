@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "node prisma/seed.js",
+    "dev": "node --watch ."
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "nedb": "^1.8.0"
+    "morgan": "^1.10.0",
+    "nedb": "^1.8.0",
+    "pouchdb": "^9.0.0",
+    "pouchdb-find": "^9.0.0"
   },
   "devDependencies": {
     "prisma": "^6.9.0",

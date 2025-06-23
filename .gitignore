@@ -5,4 +5,4 @@
 /back_end/generated
 /back_end/logs
 /back_end/prisma
-src/db/nedb/results.db
+/back_end/src/db/pouchdb
