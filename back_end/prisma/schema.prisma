@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id        Int       @id @default(autoincrement())
+  name      String
+  age       Int
+  gender    String
+  phone     String?
+  createdAt DateTime  @default(now())
+  tests     PatientTest[]
+}
+
+model PatientTest {
+  id           Int       @id @default(autoincrement())
+  patient      Patient   @relation(fields: [patientId], references: [id])
+  patientId    Int
+  testTypeId   Int
+  testTypeName String
+  resultId     String?   // ID of the result in NeDB
+  createdAt    DateTime  @default(now())
+}
+
+model License {
+  id          Int      @id @default(autoincrement())
+  startDate   DateTime
+  validUntil  DateTime
+}

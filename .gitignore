@@ -1,0 +1,10 @@
+/back_end/DB
+/back_end/Docs
+/back_end/logs
+/back_end/node_modules
+/back_end/generated
+/back_end/prisma/migrations
+/back_end/prisma/lab_demo.db
+/back_end/prisma/seed.js
+/back_end/prisma/lab_demo.db-journal
+/back_end/src/db/pouchdb
