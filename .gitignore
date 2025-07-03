@@ -1,5 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# SQL Database
+/back_end/src/DB/sql/lab.db
+
+# NoSQL Databases
+/back_end/src/DB/nosql/patient_results/
+back_end/src/DB/nosql/test_types/
+
 # dependencies
 /LabSystemDocs
 /back_end/node_modules
