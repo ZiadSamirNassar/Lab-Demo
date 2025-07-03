@@ -1,4 +1,3 @@
-const { sync } = require('pouchdb');
 const { sqldb } = require('./sql.utils')
 
 const findPatients = async() => {

@@ -1,4 +1,4 @@
-const { sqldb, findPatients, findPatientByid, insertPatient, updatePatient } = require('../../DB')
+const { findPatients, findPatientByid, insertPatient, updatePatient } = require('../../DB')
 
 const getAllPatients = async(req, res) => {
 
