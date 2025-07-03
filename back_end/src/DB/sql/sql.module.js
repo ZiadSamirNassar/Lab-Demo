@@ -1,6 +1,13 @@
 const { sqldb, createTables } = require('./sql.utils');
+const { findPatients, findPatientByid, insertPatient, updatePatient } = require('./sql.repository');
 createTables(); // إنشاء الجداول عند تشغيل الموديول
-module.exports = { sqldb };
+module.exports = { 
+    sqldb,
+    findPatients,
+    findPatientByid,
+    insertPatient,
+    updatePatient,
+};
 
 
 // Prepare statement for reuse (better performance)

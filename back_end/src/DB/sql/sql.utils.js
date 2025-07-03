@@ -10,8 +10,8 @@ sqldb.exec(`
     CREATE TABLE IF NOT EXISTS patients (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      age INTEGER,
-      gender TEXT CHECK (gender IN ('male', 'female')) DEFAULT 'male',
+      age INTEGER NOT NULL,
+      gender TEXT CHECK (gender IN ('male', 'female')) DEFAULT 'male' NOT NULL,
       phone TEXT,
       createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
     );

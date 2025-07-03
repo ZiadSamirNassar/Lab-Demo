@@ -3,6 +3,9 @@
 # dependencies
 /LabSystemDocs
 /back_end/node_modules
+/back_end/src/DB/sql/lab.db
+/back_end/src/DB/nosql/patient_results
+/back_end/src/DB/nosql/test_types
 /.pnp
 .pnp.js
 
