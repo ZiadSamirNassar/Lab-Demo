@@ -17,6 +17,8 @@
     "express": "^5.1.0",
     "pouchdb": "^9.0.0",
     "pouchdb-find": "^9.0.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
     "zod": "^3.25.71"
   }
 }
