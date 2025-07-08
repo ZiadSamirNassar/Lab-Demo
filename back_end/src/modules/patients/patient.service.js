@@ -1,10 +1,10 @@
-const { findPatients, findPatientByid, insertPatient, updatePatient } = require('../../DB')
+const { Patient } = require('../../DB')
 
 const getAllPatients = async(req, res) => {
 
     try{
         
-        const patients = await findPatients();
+        const patients = await Patient.findAll();
 
         if(!patients || patients.length <= 0){
             return res
@@ -32,7 +32,7 @@ const getPatientByid = async(req, res) => {
 
     try{
 
-        const patient = await findPatientByid(id);
+        const patient = await Patient.findByPk(id);
 
         if(!patient){
             return res.status(404).json({message: "Patient Not Exist", sucsses: false})
@@ -65,7 +65,7 @@ const createPatient = async(req, res) => {
     }
 
     try{
-        const insertedPatient = await insertPatient(name, age, gender, phone);
+        const insertedPatient = await Patient.create({name, age, gender, phone});
 
         if(!insertedPatient || insertedPatient.changes == 0){
             return res
@@ -91,7 +91,7 @@ const updatedPatient = async(req, res) => {
 
     try{
 
-        let patient = await findPatientByid(id);
+        let patient = await Patient.findByPk(id);
 
         if(!patient){
             return res.status(404).json({message: "This Patient Not Exist", sucsses: false})
@@ -102,7 +102,9 @@ const updatedPatient = async(req, res) => {
         gender = gender || patient.gender;
         phone = phone || patient.phone;
 
-        const updated = await updatePatient(name, age, gender, phone, id)
+        const updated = await Patient.update({name, age, gender, phone}, {
+            where: {id:id}
+        })
 
         if(!updated || updated.changes == 0){
             return res.status(401).json({
@@ -111,7 +113,7 @@ const updatedPatient = async(req, res) => {
             })
         }
 
-        patient = await findPatientByid(id);
+        patient = await Patient.findByPk(id);
 
         return res.json({massage: "Patient Updated Sucssesfully", data: patient, sucsses: true })
 
