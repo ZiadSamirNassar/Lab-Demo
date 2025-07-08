@@ -2,10 +2,13 @@ const { createBenchDB } = require('./nosql.utils');
 
 const patientResultsDB = createBenchDB('patient_results');
 const testTypesDB = createBenchDB('test_types');
+const { testTypeSchema, testTypeUpdateSchema } = require('./nosql.schemas')
 
 module.exports = {
   patientResultsDB,
   testTypesDB,
+  testTypeSchema,
+  testTypeUpdateSchema
 };
 // Create/Update document
 // await db.put({object with his _id})

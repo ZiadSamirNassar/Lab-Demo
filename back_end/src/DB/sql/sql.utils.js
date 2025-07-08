@@ -1,43 +1,39 @@
-const path = require('node:path');
-const sqlite = require('better-sqlite3');
+const {DataTypes} = require("sequelize")
+const sequelize = require("./sequelize.config")
 
+const Patient = sequelize.define("patients", {
+  name: { type: DataTypes.STRING, allowNull: false },
+  age: { type: DataTypes.INTEGER, allowNull: false },
+  gender: { type: DataTypes.ENUM('male', 'female'), defaultValue: 'male' },
+  phone: { type: DataTypes.STRING },
+},{
+  timestamps: true
+})
 
-const dbPath = path.resolve(__dirname, 'lab.db');
-const sqldb = new sqlite(dbPath);
+const PatientTest = sequelize.define("patient_tests",{
+  patient_id: { type: DataTypes.INTEGER, allowNull: false },
+  test_type_id: { type: DataTypes.STRING, allowNull: false },
+  test_type_name: { type: DataTypes.STRING, allowNull: false },
+  result_id: { type: DataTypes.STRING },
+},{
+  timestamps: true
+})
 
-function createTables() {
-sqldb.exec(`
-    CREATE TABLE IF NOT EXISTS patients (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      age INTEGER,
-      gender TEXT CHECK (gender IN ('male', 'female')) DEFAULT 'male',
-      phone TEXT,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+const ApplicationLicenses = sequelize.define("applicationLicenses",{
+    license_number: {type: DataTypes.TEXT},
+    license_type: {type: DataTypes.TEXT},
+    status: {type: DataTypes.ENUM('active', 'inactive'), defaultValue: 'active'},
+    start: {type: DataTypes.DATE, allowNull: false},
+    end: {type: DataTypes.DATE, allowNull: false}
+},{
+  timestamps: true
+})
 
-    CREATE TABLE IF NOT EXISTS patient_tests (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      patient_id INTEGER NOT NULL,
-      test_type_id TEXT NOT NULL,
-      test_type_name TEXT NOT NULL,
-      result_id TEXT,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE
-    );
-
-    CREATE TABLE IF NOT EXISTS licenses (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      license_number TEXT,
-      license_type TEXT,
-      status TEXT DEFAULT 'active',
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-`);
-}
+PatientTest.belongsTo(Patient, { foreignKey: 'patient_id', onDelete: 'CASCADE' });
 
 module.exports = {
-  sqldb,
-  createTables,
-};
+  sequelize,
+  Patient,
+  PatientTest,
+  ApplicationLicenses
+}
