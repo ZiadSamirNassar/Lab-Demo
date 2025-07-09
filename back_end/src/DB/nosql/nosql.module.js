@@ -1,11 +1,11 @@
 const { createBenchDB } = require('./nosql.utils');
 
-const patientResultsDB = createBenchDB('patient_results');
+const testResultsDB = createBenchDB('test_results');
 const testTypesDB = createBenchDB('test_types');
 const { testTypeSchema, testTypeUpdateSchema } = require('./nosql.schemas')
 
 module.exports = {
-  patientResultsDB,
+  testResultsDB,
   testTypesDB,
   testTypeSchema,
   testTypeUpdateSchema

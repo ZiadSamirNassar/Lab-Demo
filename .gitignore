@@ -4,7 +4,7 @@
 /back_end/src/DB/sql/lab.db
 
 # NoSQL Databases
-/back_end/src/DB/nosql/patient_results/
+/back_end/src/DB/nosql/test_results/
 back_end/src/DB/nosql/test_types/
 
 # dependencies
