@@ -4,7 +4,7 @@ PouchDB.plugin(require('pouchdb-find'));
 
 
 function createBenchDB(name) {
-  const dbPath = path.resolve(__dirname, name);
+  const dbPath = path.resolve(path.join(__dirname, '/db'), name);
   return new PouchDB(dbPath);
 }
 
