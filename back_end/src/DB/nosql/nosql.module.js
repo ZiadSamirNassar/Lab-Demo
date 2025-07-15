@@ -1,14 +1,14 @@
-const { createBenchDB } = require('./nosql.utils');
+const { testResultsDB, testTypesDB } = require('./nosql.utils');
 
-const testResultsDB = createBenchDB('test_results');
-const testTypesDB = createBenchDB('test_types');
 const { testTypeSchema, testTypeUpdateSchema } = require('./nosql.schemas')
+const { createTestResultForeTestType } = require("./nosql.repository")
 
 module.exports = {
   testResultsDB,
   testTypesDB,
   testTypeSchema,
-  testTypeUpdateSchema
+  testTypeUpdateSchema,
+  createTestResultForeTestType,
 };
 // Create/Update document
 // await db.put({object with his _id})

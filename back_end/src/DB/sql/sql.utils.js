@@ -11,10 +11,9 @@ const Patient = sequelize.define("patients", {
 })
 
 const PatientTest = sequelize.define("patient_tests",{
-  patient_id: { type: DataTypes.INTEGER, allowNull: false },
-  test_type_id: { type: DataTypes.STRING, allowNull: false },
-  test_type_name: { type: DataTypes.STRING, allowNull: false },
-  result_id: { type: DataTypes.STRING },
+  patientId: { type: DataTypes.INTEGER, allowNull: false },
+  testTypeId: { type: DataTypes.STRING, allowNull: false },
+  resultId: { type: DataTypes.STRING, allowNull: false },
 },{
   timestamps: true
 })
@@ -29,7 +28,8 @@ const ApplicationLicenses = sequelize.define("applicationLicenses",{
   timestamps: true
 })
 
-PatientTest.belongsTo(Patient, { foreignKey: 'patient_id', onDelete: 'CASCADE' });
+Patient.hasMany(PatientTest, {foreignKey: 'patientId'});
+PatientTest.belongsTo(Patient);
 
 module.exports = {
   sequelize,

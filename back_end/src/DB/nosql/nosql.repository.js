@@ -1,4 +1,4 @@
-const { testTypesDB } = require('./nosql.module');
+const { testTypesDB, testResultsDB } = require('./nosql.utils');
 const { testTypeSchema } = require('./nosql.schemas');
 
 async function addTestType(input) {
@@ -16,6 +16,27 @@ async function addTestType(input) {
   }
 }
 
+async function createTestResultForeTestType(testType) {
+  try {
+    let result = {
+      testTypeId: testType.id
+    }
+    await testType.fields.forEach( field => {
+      field.result = ""
+    })
+
+    result.fields = testType.fields;
+    
+    result = await testResultsDB.post(result);
+
+    return result;
+  } catch (err) {
+    console.error('❌ Error:', err.message);
+    throw new Error('error createing test result');
+  }
+}
+
 module.exports = {
     addTestType,
+    createTestResultForeTestType,
 }
