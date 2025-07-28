@@ -1,4 +1,4 @@
-const {testTypeSchema, testTypeUpdateSchema, testTypesDB} = require("../../DB");
+import {testTypeSchema, testTypeUpdateSchema, testTypesDB} from "../../DB/index.js";
 const data = new Date();
 
 
@@ -81,7 +81,7 @@ function searchTestsFormate (test) {
     }
 }
 //=============================================================
-const getAllTestTypes = async (req, res) => {
+export const getAllTestTypes = async (req, res) => {
   try {
     let testTypes = await testTypesDB.allDocs({ include_docs: true });
 
@@ -113,7 +113,7 @@ const getAllTestTypes = async (req, res) => {
 }
 
 
-const searchTestTypesByPartialId = async (req, res) => {
+export const searchTestTypesByPartialId = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -150,7 +150,7 @@ const searchTestTypesByPartialId = async (req, res) => {
 }
 
 
-const createTestType = async(req, res) => {
+export const createTestType = async(req, res) => {
   try {
     //{_id, name, fields} : requiered fields
     const validatedData = testTypeSchema.parse(req.body);
@@ -205,7 +205,7 @@ const createTestType = async(req, res) => {
 }
 
 
-const updateTestTypeAndFieldsContent = async(req, res) => {
+export const updateTestTypeAndFieldsContent = async(req, res) => {
     try{
         const {id} = req.params;
         let validationResult = testTypeUpdateSchema.parse(req.body);
@@ -274,12 +274,4 @@ const updateTestTypeAndFieldsContent = async(req, res) => {
     .json({ message, sucsses: false });
 
   }
-}
-
-
-module.exports = {
-    getAllTestTypes,
-    searchTestTypesByPartialId,
-    createTestType,
-    updateTestTypeAndFieldsContent
 }

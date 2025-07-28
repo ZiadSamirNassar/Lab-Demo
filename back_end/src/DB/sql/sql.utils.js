@@ -1,5 +1,5 @@
-const {DataTypes} = require("sequelize")
-const sequelize = require("./sequelize.config")
+import {DataTypes} from "sequelize"
+import sequelize from "./sequelize.config.js"
 
 const Patient = sequelize.define("patients", {
   name: { type: DataTypes.STRING, allowNull: false },
@@ -31,7 +31,7 @@ const ApplicationLicenses = sequelize.define("applicationLicenses",{
 Patient.hasMany(PatientTest, {foreignKey: 'patientId'});
 PatientTest.belongsTo(Patient);
 
-module.exports = {
+export {
   sequelize,
   Patient,
   PatientTest,

@@ -1,13 +1,15 @@
-const { Router } = require("express");
+import { Router } from "express";
+
+import { getTestResultForPatient, updateTestResult, createPDFForTestResult } from "./test_result.service.js";
+
 const testResultRouter = Router();
-const { getTestResultForPatient, updateTestResultFields, createPDFForTestResult } = require("./test_result.service");
 //====================get test result for patient ===========================
 testResultRouter.get('/:id', getTestResultForPatient)
 
 //====================update test result fields===========================
-testResultRouter.put('/fields/:id', updateTestResultFields)
+testResultRouter.put('/fields/:id', updateTestResult)
 
 
 //====================create pdf from one test result===========================
 testResultRouter.get('/:id/pdf', createPDFForTestResult)
-module.exports = testResultRouter;
+export default testResultRouter;

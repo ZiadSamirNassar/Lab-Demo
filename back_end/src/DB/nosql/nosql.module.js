@@ -1,9 +1,9 @@
-const { testResultsDB, testTypesDB } = require('./nosql.utils');
+import { testResultsDB, testTypesDB } from "./nosql.utils.js";
 
-const { testTypeSchema, testTypeUpdateSchema } = require('./nosql.schemas')
-const { createTestResultForeTestType, updateTestResultFields } = require("./nosql.repository")
+import { testTypeSchema, testTypeUpdateSchema } from "./nosql.schemas.js"
+import { createTestResultForeTestType, updateTestResultFields } from "./nosql.repository.js"
 
-module.exports = {
+export {
   testResultsDB,
   testTypesDB,
   testTypeSchema,

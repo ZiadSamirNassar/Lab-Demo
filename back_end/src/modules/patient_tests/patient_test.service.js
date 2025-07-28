@@ -1,6 +1,6 @@
-const { Patient, testTypesDB, PatientTest, createTestResultForeTestType } = require('../../DB');
+import { Patient, testTypesDB, PatientTest, createTestResultForeTestType } from "../../DB/index.js";
 
-const createTestForPatientFromTestType = async (req, res) => {
+export const createTestForPatientFromTestType = async (req, res) => {
     try{
         const { patientId, testTypeId } = req.params;
 
@@ -38,7 +38,7 @@ const createTestForPatientFromTestType = async (req, res) => {
 }
 
 
-const allTestsForPatient = async (req, res) => {
+export const allTestsForPatient = async (req, res) => {
     try{
         const {patientId} = req.params;
 
@@ -69,10 +69,4 @@ const allTestsForPatient = async (req, res) => {
         .json({ message, sucsses: false });
 
     }
-}
-
-
-module.exports = {
-    createTestForPatientFromTestType,
-    allTestsForPatient
 }

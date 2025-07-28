@@ -1,5 +1,5 @@
-const { Router } = require("express")
-const { getAllPatients, getPatientByid, createPatient, updatedPatient } = require('./patient.service')
+import { Router } from "express"
+import { getAllPatients, getPatientByid, createPatient, updatedPatient } from './patient.service.js'
 
 const patientRouter = Router();
 
@@ -16,4 +16,4 @@ patientRouter.post('/', createPatient)
 // ====================Update Patient Data========================
 patientRouter.put('/:id', updatedPatient)
 
-module.exports = patientRouter;
+export default patientRouter;

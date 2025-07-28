@@ -1,6 +1,6 @@
-const { Patient } = require('../../DB')
+import { Patient } from "../../DB/index.js";
 
-const getAllPatients = async(req, res) => {
+export const getAllPatients = async(req, res) => {
 
     try{
         
@@ -26,7 +26,7 @@ const getAllPatients = async(req, res) => {
 }
 
 
-const getPatientByid = async(req, res) => {
+export const getPatientByid = async(req, res) => {
 
     const {id} = req.params
 
@@ -50,7 +50,7 @@ const getPatientByid = async(req, res) => {
 }
 
 
-const createPatient = async(req, res) => {
+export const createPatient = async(req, res) => {
 
     let {name, age, phone, gender} = req.body;
 
@@ -85,7 +85,7 @@ const createPatient = async(req, res) => {
 }
 
 
-const updatedPatient = async(req, res) => {
+export const updatedPatient = async(req, res) => {
     const {id} = req.params;
     let {name, age, gender, phone} = req.body;
 
@@ -122,11 +122,4 @@ const updatedPatient = async(req, res) => {
         return res.status(500).json({message: "Internal Server Error", sucsses: false})
     }
 
-}
-
-module.exports = {
-    getAllPatients,
-    getPatientByid,
-    createPatient,
-    updatedPatient,
 }

@@ -1,5 +1,5 @@
-const { testTypesDB, testResultsDB } = require('./nosql.utils');
-const { testTypeSchema } = require('./nosql.schemas');
+import { testTypesDB, testResultsDB } from "./nosql.utils.js";
+import { testTypeSchema } from "./nosql.schemas.js";
 
 async function addTestType(input) {
   try {
@@ -56,7 +56,7 @@ async function updateTestResultFields(testResult, fields) {
   }
 }
 
-module.exports = {
+export {
     addTestType,
     createTestResultForeTestType,
     updateTestResultFields

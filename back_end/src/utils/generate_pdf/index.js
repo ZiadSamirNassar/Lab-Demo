@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer')
+import puppeteer from 'puppeteer'
 
 function generateReport({patient, testType, fields, createdAt}) {
 
@@ -209,4 +209,4 @@ async function generatePDF(report) {
     console.log('✅ PDF Generated!');
   }
 
- module.exports = generatePDF;
+export default generatePDF;

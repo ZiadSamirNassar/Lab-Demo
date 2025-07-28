@@ -1,4 +1,4 @@
-const { z } = require('zod');
+import { z } from 'zod';
 
 const date = new Date()
 const fieldSchema = z.object({
@@ -22,7 +22,7 @@ const testTypeUpdateSchema = z.object({
   fields: z.array(fieldSchema).optional()
 });
 
-module.exports = {
+export {
   testTypeSchema,
   testTypeUpdateSchema
 };

@@ -1,10 +1,10 @@
-const { Router } = require("express");
-const { 
+import { Router } from "express";
+import { 
     getAllTestTypes, 
     searchTestTypesByPartialId, 
     createTestType, 
     updateTestTypeAndFieldsContent 
-} = require("./test_type.service")
+} from "./test_type.service.js"
 const testTypeRouter = Router();
 
 
@@ -20,4 +20,4 @@ testTypeRouter.post("/", createTestType);
 //======================update Test Type (name or category)=================
 testTypeRouter.put("/:id", updateTestTypeAndFieldsContent)
 
-module.exports = testTypeRouter;
+export default testTypeRouter;

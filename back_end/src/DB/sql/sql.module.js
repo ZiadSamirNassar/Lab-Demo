@@ -1,6 +1,6 @@
-const {sequelize, Patient, PatientTest, ApplicationLicenses} = require('./sql.utils');
+import {sequelize, Patient, PatientTest, ApplicationLicenses} from './sql.utils.js';
 sequelize.sync({  }); // إنشاء الجداول عند تشغيل الموديول
-module.exports = { 
+export {
     Patient,
     PatientTest,
     ApplicationLicenses

@@ -1,7 +1,7 @@
-const generatePDF = require("../../utils/generate_pdf/index.js");
-const { testResultsDB, updateTestResultFields, PatientTest, Patient, testTypesDB } = require("../../DB");
+import generatePDF from "../../utils/generate_pdf/index.js";
+import { testResultsDB, updateTestResultFields, Patient, testTypesDB } from "../../DB/index.js";
 
-const getTestResultForPatient = async (req, res) => {
+export const getTestResultForPatient = async (req, res) => {
     try {
         const testResult = await testResultsDB.get(req.params.id);
 
@@ -15,7 +15,7 @@ const getTestResultForPatient = async (req, res) => {
     }
 }
     
-const updateTestResultFields = async (req, res) => {
+export const updateTestResult = async (req, res) => {
     try {
         const { id } = req.params;
         const { fields } = req.body;
@@ -39,7 +39,7 @@ const updateTestResultFields = async (req, res) => {
     }
 }
 
-const createPDFForTestResult = async (req, res) => {
+export const createPDFForTestResult = async (req, res) => {
     try {
         const { id } = req.params;
         let testResult = await testResultsDB.get(id);
@@ -76,11 +76,4 @@ const createPDFForTestResult = async (req, res) => {
         console.error(error);
         return res.status(error.cause || 500).json({ message: error.message, success: false });
     }
-}
-
-
-module.exports = {
-    getTestResultForPatient,
-    updateTestResultFields,
-    createPDFForTestResult
 }

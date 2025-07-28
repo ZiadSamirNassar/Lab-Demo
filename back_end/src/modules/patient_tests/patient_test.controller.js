@@ -1,5 +1,5 @@
-const {Router} = require('express');
-const { createTestForPatientFromTestType, allTestsForPatient } = require('./patient_test.service');
+import { Router } from "express";
+import { createTestForPatientFromTestType, allTestsForPatient } from "./patient_test.service.js";
 
 const patientTestRouter = Router()
 
@@ -10,4 +10,4 @@ patientTestRouter.post('/:patientId/:testTypeId', createTestForPatientFromTestTy
 patientTestRouter.get('/hestory/:patientId', allTestsForPatient)
 
 
-module.exports = patientTestRouter
+export default patientTestRouter
