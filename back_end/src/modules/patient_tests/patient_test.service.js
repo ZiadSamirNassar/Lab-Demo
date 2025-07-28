@@ -14,7 +14,7 @@ const createTestForPatientFromTestType = async (req, res) => {
             return res.status(404).json({message: 'there is no test with this name', success: false})
         }
 
-        const testResult = await createTestResultForeTestType({id: testType._id, fields: testType.fields})
+        const testResult = await createTestResultForeTestType({testTypeId, fields: testType.fields, patientId})
         if(!testResult){
             return res.status(500).json({message: 'internal server error', success: false})
         }
@@ -46,8 +46,7 @@ const allTestsForPatient = async (req, res) => {
             attributes: [ 'name', 'age', 'phone'],
             include: [
                 {
-                    model: PatientTest,
-                    attributes: {exclude: ['resultId']}
+                    model: PatientTest
                 }
             ]});
         if(!patient){

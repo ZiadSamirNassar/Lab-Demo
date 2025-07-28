@@ -16,16 +16,18 @@ async function addTestType(input) {
   }
 }
 
-async function createTestResultForeTestType(testType) {
+async function createTestResultForeTestType({testTypeId, fields, patientId}) {
   try {
     let result = {
-      testTypeId: testType.id
+      testTypeId,
+      patientId,
+      createdAt: new Date().toISOString()
     }
-    await testType.fields.forEach( field => {
+    await fields.forEach( field => {
       field.result = ""
     })
 
-    result.fields = testType.fields;
+    result.fields = fields;
     
     result = await testResultsDB.post(result);
 
@@ -36,7 +38,26 @@ async function createTestResultForeTestType(testType) {
   }
 }
 
+async function updateTestResultFields(testResult, fields) {
+  try {
+
+    testResult.fields.forEach((field, index) => {
+      if(field.label === fields[index].label){
+        field.result = fields[index].result
+      }
+    })
+
+    await testResultsDB.put(testResult);
+
+    return testResult;
+  } catch (error) {
+    console.error('❌ Error:', error.message);
+    throw new Error('error updating test result');
+  }
+}
+
 module.exports = {
     addTestType,
     createTestResultForeTestType,
+    updateTestResultFields
 }
