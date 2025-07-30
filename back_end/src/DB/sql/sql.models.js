@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize"
-import sequelize from "./sequelize.config.js"
+import {sequelize} from "../connectDB.js"
 
 const Patient = sequelize.define("patients", {
   name: { type: DataTypes.STRING, allowNull: false },

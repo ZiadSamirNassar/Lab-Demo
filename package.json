@@ -1,0 +1,34 @@
+{
+  "name": "back_end",
+  "version": "1.0.0",
+  "description": "==============================================================================================\r The Medical Analysis Management Program is a desktop data management program for medical laboratories.\r It helps manage medical data for each patient and their condition, the tests performed by the patient in the laboratory and their results.\r It also stores the different types of tests available in the laboratory.\r It works as a client-server program, and this program is considered the first version of the program.\r ----------------------------------------------------------------------------------------------\r The project is a digital system used by lab technicians or doctors to register patient data, store test results,\r and retrieve them later without re-entering patient information on every visit. The system also stores common\r medical test types to streamline the work\r ==============================================================================================",
+  "main": "./back_end/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "dev": "node --watch ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "express": "^5.1.0",
+    "pouchdb": "^9.0.0",
+    "pouchdb-find": "^9.0.0",
+    "puppeteer": "^24.15.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.25.71"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZiadSamirNassar/Lab-Demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ZiadSamirNassar/Lab-Demo/issues"
+  },
+  "homepage": "https://github.com/ZiadSamirNassar/Lab-Demo#readme"
+}

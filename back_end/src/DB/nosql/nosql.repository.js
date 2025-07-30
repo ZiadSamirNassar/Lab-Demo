@@ -1,4 +1,4 @@
-import { testTypesDB, testResultsDB } from "./nosql.utils.js";
+import { testTypesDB, testResultsDB } from "../index.js";
 import { testTypeSchema } from "./nosql.schemas.js";
 
 async function addTestType(input) {
