@@ -37,25 +37,11 @@ export const createPatient = async(req, res) => {
 
     let {name, age, phone, gender} = req.body;
 
-    if(!name){
-        const error = new Error('no patients found');
-        error.statusCode = 404;
-        throw error
-    }if(!age){
-        const error = new Error('no patients found');
-        error.statusCode = 404;
-        throw error
-    }if(!phone){
-        phone = '0000'
-    }if(!gender){
-        gender = "male"
-    }
-
     const insertedPatient = await Patient.create({name, age, gender, phone});
 
-    if(!insertedPatient || insertedPatient.changes == 0){
-            const error = new Error('no patients found');
-            error.statusCode = 404;
+    if(!insertedPatient){
+            const error = new Error('no patients created');
+            error.statusCode = 401;
             throw error
         }
 
@@ -85,7 +71,7 @@ export const updatedPatient = async(req, res) => {
         where: {id:id}
     })
 
-    if(!updated || updated.changes == 0){
+    if(!updated){
         const error = new Error('no patients found');
         error.statusCode = 401;
         throw error

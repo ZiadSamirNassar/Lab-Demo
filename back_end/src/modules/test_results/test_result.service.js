@@ -18,12 +18,6 @@ export const updateTestResult = async (req, res) => {
         const { id } = req.params;
         const { fields } = req.body;
 
-        if (!fields) {
-            const error = new Error('fields is required');
-            error.statusCode = 400;
-            throw error
-        }
-
         const testResult = await testResultsDB.get(id);
 
         if (!testResult) {

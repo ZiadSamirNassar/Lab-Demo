@@ -1,4 +1,4 @@
-import {testTypeSchema, testTypeUpdateSchema, testTypesDB} from "../../DB/index.js";
+import {testTypesDB} from "../../DB/index.js";
 const data = new Date();
 
 
@@ -119,9 +119,8 @@ export const searchTestTypesByPartialId = async (req, res) => {
 
 export const createTestType = async(req, res) => {
 
-    const validatedData = testTypeSchema.parse(req.body);
-
-    const test = await testTypesDB.put(validatedData);
+    const testType = req.body;
+    const test = await testTypesDB.put(testType);
 
     if(!test){
         const error = new Error('no test type created');
@@ -133,7 +132,7 @@ export const createTestType = async(req, res) => {
     return res
     .json({
         message:"test type created successfully",
-        data: validatedData,
+        data: test,
         sucsses: true
     });
 
@@ -142,42 +141,35 @@ export const createTestType = async(req, res) => {
 
 export const updateTestTypeAndFieldsContent = async(req, res) => {
     
-        const {id} = req.params;
-        let validationResult = testTypeUpdateSchema.parse(req.body);
-
-        if(!validationResult.success){
-            const error = new Error('no test type found');
-            error.statusCode = 404;
-            throw error
-        }
-
-        let {name, category, fields} = validationResult.data;
-
-        let test = await testTypesDB.get(id);
-
-        test.name = name ?? test.name
-        test.category = category ?? test.category
-
-        if(fields.length > 0){
-            let newFields = mergeFieldsWithUpdate(test.fields, fields);
-            test.fields = newFields;
-        }
-
-        test.updatedAt = data.toISOString().split("T")[0];
+    const {id} = req.params;
+    const {name, category, fields} = req.body;
         
-        const updatedTest = await testTypesDB.put(test);
 
-        if(!updatedTest){
-            const error = new Error('no test type updated');
-            error.statusCode = 401;
-            throw error
-        }
+    let test = await testTypesDB.get(id);
 
-        test._rev = undefined;
+    test.name = name ?? test.name
+    test.category = category ?? test.category
 
-        test.id = test._id;
-        test._id = undefined;
+    if(fields.length > 0){
+        let newFields = mergeFieldsWithUpdate(test.fields, fields);
+        test.fields = newFields;
+    }
 
-        return res.json({message: "تم تعديل بيانات التحليل بنجاح", data: test, sucsses: true})
+    test.updatedAt = data.toISOString().split("T")[0];
+    
+    const updatedTest = await testTypesDB.put(test);
+
+    if(!updatedTest){
+        const error = new Error('no test type updated');
+        error.statusCode = 401;
+        throw error
+    }
+
+    test._rev = undefined;
+
+    test.id = test._id;
+    test._id = undefined;
+
+    return res.json({message: "تم تعديل بيانات التحليل بنجاح", data: test, sucsses: true})
 
 }

@@ -35,9 +35,6 @@ export const createTestForPatientFromTestType = async (req, res) => {
         res.json({message: 'patient test created sucessfully', success: true})
     } 
 
-
-
-
 export const allTestsForPatient = async (req, res) => {
 
         const {patientId} = req.params;
