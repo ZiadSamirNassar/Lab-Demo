@@ -1,45 +1,45 @@
 import { Patient, testTypesDB, PatientTest, createTestResultForeTestType } from "../../DB/index.js";
 
 export const createTestForPatientFromTestType = async (req, res) => {
-    try{
+    
         const { patientId, testTypeId } = req.params;
 
         const patient = await Patient.findByPk(patientId);
         if(!patient){
-            return res.status(404).json({message: 'patient not found', success: false})
+            const error = new Error('patient not found');
+            error.statusCode = 404;
+            throw error
         }
 
         const testType = await testTypesDB.get(testTypeId)
         if(!testType){
-            return res.status(404).json({message: 'there is no test with this name', success: false})
+            const error = new Error('there is no test with this name');
+            error.statusCode = 404;
+            throw error
         }
 
         const testResult = await createTestResultForeTestType({testTypeId, fields: testType.fields, patientId})
         if(!testResult){
-            return res.status(500).json({message: 'internal server error', success: false})
+            const error = new Error('internal server error');
+            error.statusCode = 500;
+            throw error
         }
 
         const patientTest = await PatientTest.create({ patientId, testTypeId, resultId: testResult.id })
         if(!patientTest){
-            return res.status(500).json({message: 'can\'t create test for patient', success: false})
+            const error = new Error('can\'t create test for patient');
+            error.statusCode = 500;
+            throw error
         }
         
         res.json({message: 'patient test created sucessfully', success: true})
-    } catch (error) {
-        const { reason, status, message, docId } = error;
+    } 
 
-        console.error("end-point Error Document not found :", {error});
 
-        return res
-        .status(status || 500)
-        .json({ message, sucsses: false });
-
-    }
-}
 
 
 export const allTestsForPatient = async (req, res) => {
-    try{
+
         const {patientId} = req.params;
 
         const patient = await Patient.findByPk(patientId, {
@@ -50,23 +50,12 @@ export const allTestsForPatient = async (req, res) => {
                 }
             ]});
         if(!patient){
-            return res.status(404).json({message: 'patient not found', success: false})
+            const error = new Error('patient not found');
+            error.statusCode = 404;
+            throw error
         }
 
-        res.json(patient);
+        res.json({massage: 'patient tests found', success: true, data: patient});
 
-    } catch (error) {
-        const { reason, status, message, docId } = error;
 
-        console.error("end-point Error Document not found :", {
-        reason,
-        message,
-        docId,
-        });
-
-        return res
-        .status(status || 500)
-        .json({ message, sucsses: false });
-
-    }
 }

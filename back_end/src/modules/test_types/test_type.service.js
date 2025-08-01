@@ -82,39 +82,22 @@ function searchTestsFormate (test) {
 }
 //=============================================================
 export const getAllTestTypes = async (req, res) => {
-  try {
     let testTypes = await testTypesDB.allDocs({ include_docs: true });
 
     if (testTypes.total_rows <= 0) {
-      return res.status(404).json({
-        message: "لا يوجد تحاليل علي السيستيم",
-        sucsses: false,
-      });
+        const error = new Error('no test type found');
+        error.statusCode = 404;
+        throw error
     }
 
     testTypes = getAllTestsFormate(testTypes);
 
-    res.json({ message: "done", data: testTypes, sucsses: true });
+    return res.json({ message: "done", data: testTypes, sucsses: true });
 
-  } catch (error) {
-    const { reason, status, message, docId } = error;
-
-    console.error("end-point Error Document not found :", {
-    reason,
-    message,
-    docId,
-    });
-
-    return res
-    .status(status || 500)
-    .json({ message, sucsses: false });
-
-  }
 }
 
 
 export const searchTestTypesByPartialId = async (req, res) => {
-  try {
     const { id } = req.params;
 
     let docs = await searchTestTypesByPrefix(testTypesDB, id);
@@ -124,98 +107,48 @@ export const searchTestTypesByPartialId = async (req, res) => {
     });
 
     if( docs.length <=0 ){
-        return res
-        .status(404)
-        .json({
-            message: "لا يوجد تحليل بهاذا الاسم",
-            sucsses: false
-        })
+        const error = new Error('no test type found');
+        error.statusCode = 404;
+        throw error
     }
 
-    res.json({ message: "done", data: docs, sucsses: true });
-  } catch (error) {
-    const { reason, status, message, docId } = error;
-
-    console.error("end-point Error Document not found :", {
-    reason,
-    message,
-    docId,
-    });
-
-    return res
-    .status(status || 500)
-    .json({ message, sucsses: false });
-
-  }
+    return res.json({ message: "done", data: docs, sucsses: true });
+ 
 }
 
 
 export const createTestType = async(req, res) => {
-  try {
-    //{_id, name, fields} : requiered fields
+
     const validatedData = testTypeSchema.parse(req.body);
 
     const test = await testTypesDB.put(validatedData);
 
     if(!test){
-        return res
-        .status(500)
-        .json({
-            message:"فشل انشاء تحليل جديد",
-            sucsses: false
-        });
+        const error = new Error('no test type created');
+        error.statusCode = 401;
+        throw error
     }
+
 
     return res
     .json({
-        message:"تم اضافه التحليل بنجاح",
+        message:"test type created successfully",
         data: validatedData,
         sucsses: true
     });
 
-  } catch (error) {
-    // 🛑 If validation failed
-    if (error.name === "ZodError") {
-        const firstError = error.errors?.[0];
-        if (firstError) {
-            let message = `${firstError.code}, ${firstError.path[0]} is ${firstError.message} expected ${firstError.expected}`;
-            console.error(message)
-            return res.status(400).json({
-                message,
-                details: error.errors,
-                sucsses: false,
-            });
-        }
-
-    }
-
-    const { reason, status, message, docId } = error;
-
-    console.error("end-point Error Document not found :", {
-    reason,
-    message,
-    docId,
-    });
-
-    return res
-    .status(status || 500)
-    .json({ message, sucsses: false });
-
-  }
 }
 
 
 export const updateTestTypeAndFieldsContent = async(req, res) => {
-    try{
+    
         const {id} = req.params;
         let validationResult = testTypeUpdateSchema.parse(req.body);
 
         if(!validationResult.success){
-            return res.status(400).json({
-                message: "بيانات غير صحيحة",
-                errors: validationResult.error.errors,
-                success: false
-            });
+            const error = new Error('no test type found');
+            error.statusCode = 404;
+            throw error
         }
 
         let {name, category, fields} = validationResult.data;
@@ -235,7 +168,9 @@ export const updateTestTypeAndFieldsContent = async(req, res) => {
         const updatedTest = await testTypesDB.put(test);
 
         if(!updatedTest){
-            throw new Error({message: "فشل تعديل التحليل"});
+            const error = new Error('no test type updated');
+            error.statusCode = 401;
+            throw error
         }
 
         test._rev = undefined;
@@ -245,33 +180,4 @@ export const updateTestTypeAndFieldsContent = async(req, res) => {
 
         return res.json({message: "تم تعديل بيانات التحليل بنجاح", data: test, sucsses: true})
 
-    } catch (error) {
-    // 🛑 If validation failed
-    if (error.name === "ZodError") {
-        const firstError = error.errors?.[0];
-        if (firstError) {
-            let message = `${firstError.code}, ${firstError.path[0]} is ${firstError.message} expected ${firstError.expected}`;
-            console.error(message)
-            return res.status(400).json({
-                message,
-                details: error.errors,
-                sucsses: false,
-            });
-        }
-
-    }
-
-    const { reason, status, message, docId } = error;
-
-    console.error("end-point Error Document not found :", {
-    reason,
-    message,
-    docId,
-    });
-
-    return res
-    .status(status || 500)
-    .json({ message, sucsses: false });
-
-  }
 }

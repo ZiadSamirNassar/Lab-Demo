@@ -1,6 +1,6 @@
 import express from 'express';
 const app = express();
-import bootstrap from './src/app.controller.js'
+import bootstrap from './app.controller.js'
 const port = 3000;
 
 bootstrap(app, express);

@@ -1,4 +1,5 @@
 import * as modules from './modules/index.js'
+import { globalError } from './utils/index.js'
 
 const bootstrap = (app, express) => {
 
@@ -13,6 +14,8 @@ const bootstrap = (app, express) => {
         res.json({massage: "Hello, This is Medical_Lab Application", sucsses: true})
     })
 
+    //global error handler
+    app.use(globalError)
 }
 
 export default bootstrap;

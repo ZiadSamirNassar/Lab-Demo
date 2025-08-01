@@ -2,7 +2,7 @@
   "name": "back_end",
   "version": "1.0.0",
   "description": "==============================================================================================\r The Medical Analysis Management Program is a desktop data management program for medical laboratories.\r It helps manage medical data for each patient and their condition, the tests performed by the patient in the laboratory and their results.\r It also stores the different types of tests available in the laboratory.\r It works as a client-server program, and this program is considered the first version of the program.\r ----------------------------------------------------------------------------------------------\r The project is a digital system used by lab technicians or doctors to register patient data, store test results,\r and retrieve them later without re-entering patient information on every visit. The system also stores common\r medical test types to streamline the work\r ==============================================================================================",
-  "main": "./back_end/index.js",
+  "main": "./back_end/src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node .",
