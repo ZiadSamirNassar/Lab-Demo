@@ -1,8 +1,13 @@
 import * as modules from './modules/index.js'
 import { globalError } from './utils/index.js'
+import cors from 'cors'
 
 const bootstrap = (app, express) => {
 
+    app.use(cors({
+        origin: '*',
+        credentials: true
+    }));
     app.use(express.json());
 
     app.use('/patient', modules.patientRouter);
